@@ -53,3 +53,24 @@ next-env.d.ts
 
 # System Files
 Thumbs.db
+
+# SongPig specific
+/uploads/
+/cache/
+/backups/
+
+# SSL certificates
+*.crt
+*.key
+
+# Database files
+*.sql
+*.sqlite
+
+# Log files
+*.log
+/logs/
+
+# Temporary files
+*.tmp
+/temp/
