@@ -74,3 +74,17 @@ Thumbs.db
 # Temporary files
 *.tmp
 /temp/
+
+# Test environment
+.env.test
+
+# New env.test changes
+*.env*
+!.env.example
+
+# Local environment files
+.env*.local
+
+# Environment files
+.env*
+!.env.example

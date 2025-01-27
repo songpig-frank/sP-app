@@ -1,11 +1,15 @@
 import OpenAI from 'openai';
 
 export class AIService {
-  private openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
-  });
+  private openai: OpenAI;
 
-  async generateLyrics(prompt: string, style: string): Promise<{ lyrics: string; rawOutput: any }> {
+  constructor() {
+    this.openai = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY || '', // Use real key
+    });
+  }
+
+  async generateLyrics(prompt: string, style: string) {
     const completion = await this.openai.chat.completions.create({
       messages: [{
         role: "user",
@@ -16,7 +20,7 @@ export class AIService {
 
     return {
       lyrics: completion.choices[0].message.content || '',
-      rawOutput: completion // Store for legal protection
+      rawOutput: completion
     };
   }
 } 
