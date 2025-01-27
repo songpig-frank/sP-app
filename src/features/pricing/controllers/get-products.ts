@@ -1,19 +1,19 @@
-import { createSupabaseServerClient } from '@/libs/supabase/supabase-server-client';
+import { stripeAdmin } from '@/libs/stripe/stripe-admin';
 
 export async function getProducts() {
-  const supabase = await createSupabaseServerClient();
+  const products = await stripeAdmin.products.list({
+    active: true,
+    expand: ['data.default_price'],
+  });
 
-  const { data, error } = await supabase
-    .from('products')
-    .select('*, prices(*)')
-    .eq('active', true)
-    .eq('prices.active', true)
-    .order('metadata->index')
-    .order('unit_amount', { referencedTable: 'prices' });
+  const prices = await stripeAdmin.prices.list({
+    active: true,
+  });
 
-  if (error) {
-    console.error(error.message);
-  }
+  const productsWithPrices = products.data.map((product) => ({
+    ...product,
+    prices: prices.data.filter((price) => price.product === product.id),
+  }));
 
-  return data ?? [];
+  return productsWithPrices;
 }

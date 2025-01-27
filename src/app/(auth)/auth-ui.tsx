@@ -3,7 +3,7 @@
 import { FormEvent, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { IoLogoGithub, IoLogoGoogle } from 'react-icons/io5';
+import { IoLogoGoogle } from 'react-icons/io5';
 
 import { Button } from '@/components/ui/button';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
@@ -12,8 +12,8 @@ import { toast } from '@/components/ui/use-toast';
 import { ActionResponse } from '@/types/action-response';
 
 const titleMap = {
-  login: 'Login to UPDATE_THIS_WITH_YOUR_APP_DISPLAY_NAME',
-  signup: 'Join UPDATE_THIS_WITH_YOUR_APP_DISPLAY_NAME and start generating banners for free',
+  login: 'Login to Your App',
+  signup: 'Join Your App',
 } as const;
 
 export function AuthUI({
@@ -69,7 +69,7 @@ export function AuthUI({
         <Image src='/logo.png' width={80} height={80} alt='' className='m-auto' />
         <h1 className='text-lg'>{titleMap[mode]}</h1>
       </div>
-      <div className='flex flex-col gap-4'>
+        <div className='flex flex-col gap-4'>
         <button
           className='flex items-center justify-center gap-2 rounded-md bg-cyan-500 py-4 font-medium text-black transition-all hover:bg-cyan-400 disabled:bg-neutral-700'
           onClick={() => handleOAuthClick('google')}
@@ -78,16 +78,9 @@ export function AuthUI({
           <IoLogoGoogle size={20} />
           Continue with Google
         </button>
-        <button
-          className='flex items-center justify-center gap-2 rounded-md bg-fuchsia-500 py-4 font-medium text-black transition-all hover:bg-fuchsia-400 disabled:bg-neutral-700'
-          onClick={() => handleOAuthClick('github')}
-          disabled={pending}
-        >
-          <IoLogoGithub size={20} />
-          Continue with GitHub
-        </button>
 
         <Collapsible open={emailFormOpen} onOpenChange={setEmailFormOpen}>
+
           <CollapsibleTrigger asChild>
             <button
               className='text-neutral6 flex w-full items-center justify-center gap-2 rounded-md bg-zinc-900 py-4 font-medium transition-all hover:bg-zinc-800 disabled:bg-neutral-700 disabled:text-black'
